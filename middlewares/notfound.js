@@ -1,4 +1,4 @@
-const statusCode = require("http-status-code");
+const statusCode = require("http-status");
 
 const notFound = (req, res) => {
   res
