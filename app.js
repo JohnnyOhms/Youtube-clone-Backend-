@@ -5,10 +5,12 @@ const connect = require("./database/connect");
 
 // routers
 const authRouter = require("./routes/auth");
+const videoRouter = require("./routes/videos");
 
 // middlewares
 const notFoundMiddleware = require("./middlewares/notfound");
 const erroHandlerMiddleware = require("./middlewares/error-handler");
+const authMiddleware = require("./middlewares/authentication");
 
 app.use(express.json());
 
@@ -17,8 +19,8 @@ app.get("/", (req, res) => {
 });
 
 // routes
-
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/videos", authMiddleware, videoRouter);
 app.use(notFoundMiddleware);
 app.use(erroHandlerMiddleware);
 

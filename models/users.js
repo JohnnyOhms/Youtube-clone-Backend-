@@ -35,7 +35,7 @@ UserSchema.pre("save", function (next) {
 UserSchema.method({
   CreateJSONtoken: function () {
     return JsonWebToken.sign(
-      { userId: this._id, name: this.name },
+      { userId: this._id, userName: this.name },
       process.env.JSON_KEY,
       process.env.JSON_EXPIRE
     );
