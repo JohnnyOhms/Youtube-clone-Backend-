@@ -4,18 +4,18 @@ const videoSchema = new mongoose.Schema(
   {
     thumbnail: {
       type: String,
-      require,
+      required: [true, "Provide a valid field"],
       trim: true,
     },
     title: {
       type: String,
-      require,
+      required: [true, "Provide a valid field"],
       minlength: 5,
       trim: true,
     },
     channel: {
       type: String,
-      require,
+      required: [true, "Provide a valid field"],
       trim: true,
     },
     createdBy: {

@@ -11,7 +11,6 @@ const auth = async (req, res, next) => {
   try {
     const decode = JsonWebToken.verify(token, process.env.JSON_KEY);
     req.user = { userId: decode.userId, name: decode.userName };
-
     next();
   } catch (error) {
     throw new UnauthenticatedError("Authentication invalid");
