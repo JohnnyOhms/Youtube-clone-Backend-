@@ -19,6 +19,9 @@ const UserSchema = new mongoose.Schema({
     ],
     unique: true,
   },
+  image: {
+    type: String,
+  },
   password: {
     type: String,
     required: [true, "Please provide password"],
@@ -35,7 +38,7 @@ UserSchema.pre("save", function (next) {
 UserSchema.method({
   CreateJSONtoken: function () {
     return JsonWebToken.sign(
-      { userId: this._id, userName: this.name },
+      { userId: this._id, userName: this.name, email: this.email },
       process.env.JSON_KEY,
       process.env.JSON_EXPIRE
     );
