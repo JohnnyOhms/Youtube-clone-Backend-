@@ -4,36 +4,8 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 const asyncHandler = require("../middlewares/asyncHandler");
 const JsonWebToken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-// const upload = require("../middlewares/imageUpload")
-const renderURL = "http://localhost:3000/auth/reset-password";
-const URL = "http://localhost:5000/api/v1/auth";
-const fs = require("node:fs");
-const path = require("node:path");
-const multer = require("multer");
-
-// SET STORAGE
-
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
-
-var upload = multer({ storage: storage });
 
 const register = asyncHandler(async (req, res) => {
-  // const image = {
-  //   data: fs.readFileSync(
-  //     path.join(__dirname + "/uploads/" + "1672832830219.jpg")
-  //   ),
-  //   contentType: "image/png",
-  // };
-
-  // console.log(image);
-
   const user = await User.create({ ...req.body });
   const create = new User();
   const token = create.CreateJSONtoken();

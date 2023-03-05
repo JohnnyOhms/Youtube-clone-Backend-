@@ -5,6 +5,8 @@ const connect = require("./database/connect");
 
 // security packages
 const cors = require("cors");
+const helmet = require("helmet");
+const xss = require("xss-clean");
 
 // routers
 const authRouter = require("./routes/auth");
@@ -15,8 +17,10 @@ const notFoundMiddleware = require("./middlewares/notfound");
 const erroHandlerMiddleware = require("./middlewares/error-handler");
 const authMiddleware = require("./middlewares/authentication");
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+app.use(helmet());
+app.use(xss());
 
 app.get("/", (req, res) => {
   res.send("My YoutubeV2.0 end point server");
