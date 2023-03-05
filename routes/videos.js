@@ -7,7 +7,8 @@ const {
   deleteAllVideo,
 } = require("../controllers/videos");
 
-Router.route("/").get(getAllVideo).post(addVideos).delete(deleteAllVideo);
-Router.route("/:id").delete(deleteVideo);
+Router.route("/").get(getAllVideo).post(addVideos);
+Router.route("/single-delete").post(deleteVideo);
+Router.route("/delete-all").delete(deleteAllVideo);
 
 module.exports = Router;

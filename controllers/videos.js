@@ -1,6 +1,7 @@
 const asyncHandler = require("../middlewares/asyncHandler");
 const statusCode = require("http-status");
 const Videos = require("../models/videos");
+const { CustomAPIError } = require("../errors");
 
 const getAllVideo = asyncHandler(async (req, res, next) => {
   const { sort, search } = req.query;
@@ -36,6 +37,14 @@ const getAllVideo = asyncHandler(async (req, res, next) => {
 
 const addVideos = asyncHandler(async (req, res, next) => {
   req.body.createdBy = req.user.userId;
+  const {
+    body: { videoId },
+    user: { userId },
+  } = req;
+  const existVideo = await Videos.findOne({ createdBy: userId, videoId });
+  if (existVideo) {
+    throw new CustomAPIError("Video already in the Database");
+  }
   const videos = await Videos.create({ ...req.body });
   res.status(statusCode.CREATED).json({ success: true, videos });
 });
@@ -43,7 +52,7 @@ const addVideos = asyncHandler(async (req, res, next) => {
 const deleteVideo = asyncHandler(async (req, res, next) => {
   const {
     user: { userId },
-    params: { id: videoId },
+    body: { _id: videoId },
   } = req;
   const videos = await Videos.findByIdAndRemove({
     createdBy: userId,

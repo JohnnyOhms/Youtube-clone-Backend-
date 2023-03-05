@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const connect = require("./database/connect");
 
+// security packages
+const cors = require("cors");
+
 // routers
 const authRouter = require("./routes/auth");
 const videoRouter = require("./routes/videos");
@@ -12,10 +15,11 @@ const notFoundMiddleware = require("./middlewares/notfound");
 const erroHandlerMiddleware = require("./middlewares/error-handler");
 const authMiddleware = require("./middlewares/authentication");
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("My youtube end point documentations");
+  res.send("My YoutubeV2.0 end point server");
 });
 
 // routes

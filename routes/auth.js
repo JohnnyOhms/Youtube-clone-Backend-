@@ -7,7 +7,6 @@ const {
   resetPassword,
   confirmResetPassword,
 } = require("../controllers/auth");
-// const uploadImage = require("../middlewares")
 
 Router.route("/register").post(register);
 Router.route("/login").post(login);

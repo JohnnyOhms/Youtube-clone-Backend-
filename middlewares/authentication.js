@@ -4,7 +4,7 @@ const JsonWebToken = require("jsonwebtoken");
 const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer")) {
-    throw new UnauthenticatedError("Authentication error");
+    next(new UnauthenticatedError("Authentication invalid"));
   }
   const token = authHeader.split(" ")[1];
 
@@ -13,7 +13,7 @@ const auth = async (req, res, next) => {
     req.user = { userId: decode.userId, name: decode.userName };
     next();
   } catch (error) {
-    throw new UnauthenticatedError("Authentication invalid");
+    next(new UnauthenticatedError("Authentication invalid"));
   }
 };
 

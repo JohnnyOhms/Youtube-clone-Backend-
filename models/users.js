@@ -19,10 +19,6 @@ const UserSchema = new mongoose.Schema({
     ],
     unique: true,
   },
-  userImg: {
-    data: Buffer,
-    ContentType: String,
-  },
   password: {
     type: String,
     required: [true, "Please provide password"],

@@ -18,6 +18,11 @@ const videoSchema = new mongoose.Schema(
       required: [true, "Provide a valid field"],
       trim: true,
     },
+    videoId: {
+      type: String,
+      required: [true, "Provide a valid field"],
+      trim: true,
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: "User",
